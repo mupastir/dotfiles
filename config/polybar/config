@@ -63,8 +63,8 @@ font-4 = FontAwesome5Brands:style=Solid:pixelsize=10;3
 
 ;separator = " "
 
-modules-left = i3
-modules-right = eth sp2 system-cpu-loadavg sp2 pub-ip sp2 volume sp2 xkeyboard sp2 battery1 sp2 date
+modules-left = i3 sp2 xwindow
+modules-right = eth sp2 system-cpu-loadavg sp2 pub-ip sp2 clipit sp2 volume sp2 xkeyboard sp2 battery1 sp2 mybright sp2 date sp2 parcellite
 
 
 ;modules-left = i3 wlan sp2 trash sp2 fs1 sp2 fs2 sp2 fs3 sp2 fs4 sp2 btcrub sp2 hum1 sp2 hum2 updates-arch-combined
@@ -96,7 +96,7 @@ cursor-click = pointer
 
 [module/mybright]
 type = custom/script
-exec = /home/oleh/soft/polybar/brightness.sh 
+exec = brightnessctl -q | head -2 | tail +2
 scroll-up = /home/oleh/soft/polybar/brightness.sh + DP1
 scroll-down = /home/oleh/soft/polybar/brightness.sh - DP1
 label = %{T4}%{T-} %output%
@@ -162,6 +162,11 @@ index-sort = true
 wrapping-scroll = false
 strip-wsnumbers = false
 enable-click = false
+enable-scroll = false
+
+[module/parcellite]
+type = internal/parcellite
+enable-click = true
 enable-scroll = false
 
 ;ws-icon-0 = 1;
