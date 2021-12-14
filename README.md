@@ -10,3 +10,9 @@ my dotfiles
 - polybar
 - vim
 - ![vim-plug](https://github.com/junegunn/vim-plug)
+- kitty
+- mc
+- htop
+- keepassxc
+- ![via](https://caniusevia.com/)
+- telegram
