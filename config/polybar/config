@@ -96,7 +96,8 @@ cursor-click = pointer
 
 [module/mybright]
 type = custom/script
-exec = brightnessctl -q | head -2 | tail +2
+exec = echo "brightness: "$(brightnessctl -q | head -2 | tail +2 | cut -d ' ' -f4 | tr -d '()')
+;exec = brightnessctl -q | head -2 | tail +2
 scroll-up = /home/oleh/soft/polybar/brightness.sh + DP1
 scroll-down = /home/oleh/soft/polybar/brightness.sh - DP1
 label = %{T4}%{T-} %output%
