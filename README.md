@@ -6,4 +6,7 @@ my dotfiles
 - brightnessctl
 - parcellite
 - i3wm
+- lightdm
 - polybar
+- vim
+- ![vim-plug](https://github.com/junegunn/vim-plug)
