@@ -10,7 +10,16 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+set $primary_monitor $(brightnessctl -q |head -n 1 | cut -d ' ' -f2 | tr -d \')
+set $primary_monitor_brightness $(brightnessctl -q | head -2 | tail +2 | cut -d ' ' -f4 | tr -d '()%')
+set $p_m $(xrandr | grep " connected " | awk '{ print$1 }' | head -1)
+set $s_m $(xrandr | grep " connected " | awk '{ print$1 }' | head -2 | tail +2)
 
+# add HDMI monitor when connected
+exec_always --no-startup-id xrandr --output $s_m --right-of $p_m
+bindsym $mod+m exec --no-startup-id xrandr --output $s_m --auto --right-of $p_m
+bindsym $mod+u move workspace to output left
+bindsym $mod+i move workspace to output right
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
 font pango:monospace 8
@@ -37,6 +46,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl -d $primary_monitor set $(($primary_monitor_brightness+10))%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl -d $primary_monitor set $(($primary_monitor_brightness-10))%
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -103,6 +114,9 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
+# lock screen
+bindsym $mod+Ctrl+l exec "dm-tool switch-to-greeter"
+
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
@@ -146,6 +160,11 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+# start flameshot
+bindsym $mod+p exec flameshot gui
+
+# setup layouts
+exec_always --no-startup-id setxkbmap -model pc104 -layout us,ru,ua -option grp:alt_space_toggle
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -174,18 +193,22 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-        status_command i3status
-}
+#bar {
+#        output primary
+#	status_command i3status 
+#	position top
+#}
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id i3exit lock, mode "default"
-    bindsym e exec --no-startup-id i3exit logout, mode "default"
-    bindsym s exec --no-startup-id i3exit suspend, mode "default"
-    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
-    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym l exec --no-startup-id ~/.config/i3/i3exit.sh lock, mode "default"
+    bindsym e exec --no-startup-id ~/.config/i3/i3exit.sh logout, mode "default"
+    bindsym s exec --no-startup-id ~/.config/i3/i3exit.sh suspend, mode "default"
+    bindsym h exec --no-startup-id ~/.config/i3/i3exit.sh hibernate, mode "default"
+    bindsym r exec --no-startup-id ~/.config/i3/i3exit.sh reboot, mode "default"
     bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
 
     # back to normal: Enter or Escape
@@ -193,3 +216,24 @@ mode "$mode_system" {
     bindsym Escape mode "default"
 }
 bindsym $mod+Escape mode "$mode_system"
+
+for_window [class="^.*"] border normal
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+
+#                 RRGGBBAA
+set $transparent #000000
+
+#### COLORS #######################################
+
+# XRESOURCES
+set $fg "#599e71"
+set $bg "#263240"
+
+# CLASS                 BORDER  BACK    TEXT    INDICATOR
+client.focused          $fg     $fg     $bg     $fg
+client.focused_inactive $fg     $fg     $bg     $fg 
+client.unfocused        $bg     $bg     $fg     $bg
+client.urgent           $bg     $bg     $fg     $bg 
+client.placeholder      $bg     $bg     $fg     $bg 
