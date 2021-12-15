@@ -12,11 +12,11 @@
 set $mod Mod4
 set $primary_monitor $(brightnessctl -q |head -n 1 | cut -d ' ' -f2 | tr -d \')
 set $primary_monitor_brightness $(brightnessctl -q | head -2 | tail +2 | cut -d ' ' -f4 | tr -d '()%')
-set $p_m $(xrandr --listmonitors | head -2 | tail +2 | cut -d ' ' -f6)
-set $s_m $(xrandr --listmonitors | head -3 | tail +3 | cut -d ' ' -f6)
+set $p_m $(xrandr | grep " connected " | awk '{ print$1 }' | head -1)
+set $s_m $(xrandr | grep " connected " | awk '{ print$1 }' | head -2 | tail +2)
 
 # add HDMI monitor when connected
-exec --no-startup-id xrandr --output $s_m --right-of $p_m
+exec_always --no-startup-id xrandr --output $s_m --right-of $p_m
 bindsym $mod+m exec --no-startup-id xrandr --output $s_m --auto --right-of $p_m
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
