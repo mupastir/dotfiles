@@ -64,12 +64,7 @@ font-4 = FontAwesome5Brands:style=Solid:pixelsize=10;3
 ;separator = " "
 
 modules-left = i3 sp2 xwindow
-modules-right = eth sp2 cpu sp2 pub-ip sp2 clipit sp2 volume sp2 xkeyboard sp2 battery1 sp2 mybright sp2 date sp2 parcellite
-
-
-;modules-left = i3 wlan sp2 trash sp2 fs1 sp2 fs2 sp2 fs3 sp2 fs4 sp2 btcrub sp2 hum1 sp2 hum2 updates-arch-combined
-;modules-center = vpn-openvpn-status info-ssh-sessions profile xwindow powermenu xkeyboard sp2 xbacklight sp2 netspdeth spi2 battery1  
-;modules-right = eth openweathermap-fullfeatured sp2 netspdwlan sp2 system-cpu-loadavg sp2 btc-price sp2 usd-price sp2 pub-ip sp2 mybright sp2 volume sp2 filesystem sp1 memory sp1 temperature sp2 battery0 sp2 date 
+modules-right = mdp sp2 cpu sp2 pub-ip sp2 pulseaudio sp2 xkeyboard sp2 battery1 sp2 mybright sp2 date sp2 parcellite
 
 tray-position = right
 tray-padding = 0
@@ -103,41 +98,6 @@ scroll-down = /home/oleh/soft/polybar/brightness.sh - DP1
 label = %{T4}%{T-} %output%
 interval = 0.5 
 
-[module/openweathermap-fullfeatured]
-type = custom/script
-exec = /home/oleh/soft/polybar/weather-openmap.sh
-interval = 600
-;label-font = 5
-;label = %{T1} %output% %{T-}
-
-[module/test1]
-type = custom/script
-exec = /home/oleh/soft/polybar/inbox-imap-shellnetrc.sh
-interval = 60
-label = 1 %output%
-
-[module/system-cpu-loadavg]
-type = custom/script
-exec = /home/oleh/soft/polybar/cpu_loadavg.sh
-interval = 5
-label = %output%
-
-[module/pub-ip]
-type = custom/script
-exec = /home/oleh/soft/polybar/pub_ip_polybar.sh
-interval = 5
-label = %{T4}%{T-} %output%
-
-[module/info-ssh-sessions]
-type = custom/script
-exec = /home/oleh/soft/polybar/info_ssh_sessions.sh
-interval = 60
-
-[module/soft]
-type = custom/script
-exec = /home/oleh/soft/polybar/info-softwarecounter.py
-interval = 10
-
 [module/sp1]
 type = custom/text
 content = " "
@@ -164,6 +124,34 @@ wrapping-scroll = false
 strip-wsnumbers = false
 enable-click = false
 enable-scroll = false
+; Only show workspaces on the same output as the bar
+;pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-background = ${colors.i3}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${self.label-focused-background}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+; Separator in between workspaces
+; label-separator = |
 
 [module/parcellite]
 type = internal/parcellite
@@ -433,6 +421,33 @@ format-prefix-background = ${colors.background-alt}
 label = %date%%time%
 label-foreground = ${colors.foreground-alt}
 label-background = ${colors.background-alt}
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = <label-volume> <bar-volume>
+label-volume = VOL %percentage%%
+label-volume-foreground = ${root.foreground}
+
+label-muted = "  Muted "
+label-muted-foreground = ${colors.foreground-alt}
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
 
 [module/volume]
 type = internal/alsa
