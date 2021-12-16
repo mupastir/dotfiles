@@ -14,10 +14,11 @@ set $primary_monitor $(brightnessctl -q |head -n 1 | cut -d ' ' -f2 | tr -d \')
 set $primary_monitor_brightness $(brightnessctl -q | head -2 | tail +2 | cut -d ' ' -f4 | tr -d '()%')
 set $p_m $(xrandr | grep " connected " | awk '{ print$1 }' | head -1)
 set $s_m $(xrandr | grep " connected " | awk '{ print$1 }' | head -2 | tail +2)
-
+set $s_m_d $(xrandr | grep " disconnected " | awk '{ print$1 }' | head -1)
 # add HDMI monitor when connected
-exec_always --no-startup-id xrandr --output $s_m --right-of $p_m
-bindsym $mod+m exec --no-startup-id xrandr --output $s_m --auto --right-of $p_m
+exec_always --no-startup-id xrandr --output $s_m --right-of $p_m --auto
+exec_always --no-startup-id xrandr --output $s_m_dis --off
+bindsym $mod+m exec --no-startup-id xrandr --output $s_m --auto --right-of $p_m --auto
 bindsym $mod+u move workspace to output left
 bindsym $mod+i move workspace to output right
 # Font for window titles. Will also be used by the bar unless a different font
@@ -218,3 +219,22 @@ mode "$mode_system" {
 bindsym $mod+Escape mode "$mode_system"
 
 for_window [class="^.*"] border normal
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+
+#                 RRGGBBAA
+set $transparent #000000
+
+#### COLORS #######################################
+
+# XRESOURCES
+set $fg "#599e71"
+set $bg "#263240"
+
+# CLASS                 BORDER  BACK    TEXT    INDICATOR
+client.focused          $fg     $fg     $bg     $fg
+client.focused_inactive $fg     $fg     $bg     $fg 
+client.unfocused        $bg     $bg     $fg     $bg
+client.urgent           $bg     $bg     $fg     $bg 
+client.placeholder      $bg     $bg     $fg     $bg 
