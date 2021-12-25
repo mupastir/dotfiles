@@ -1,6 +1,6 @@
 #!/bin/sh
 lock() {
-    i3lock
+    dm-tool switch-to-greeter
 }
 
 case "$1" in
