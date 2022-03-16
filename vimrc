@@ -1,5 +1,7 @@
 call plug#begin()
  
+  Plug 'zivyangll/git-blame.vim'
+  
   Plug 'bling/vim-airline'
   
   Plug 'preservim/nerdtree'
@@ -21,6 +23,10 @@ call plug#begin()
   Plug 'junegunn/fzf.vim'
 
 call plug#end()
+
+" map in your vimrc to avoid conflicts with other plugins
+nnoremap <leader>b :<C-u>call gitblame#echo()<CR>
+" map <leader>b :call gitblame#echo()
 
 au BufNewFile,BufRead *.py
     \ set expandtab       |" replace tabs with spaces
@@ -80,3 +86,4 @@ map <F8> :TagbarToggle<CR>
 
 " Add ag search support
 let g:ackprg = 'ag --nogroup --nocolor --column'
+
