@@ -1,0 +1,33 @@
+{
+  "allowManagedPermissionRulesOnly": true,
+  "permissions": {
+    "disableBypassPermissionsMode": "disable",
+    "ask": ["Bash"],
+    "deny": ["WebSearch", "WebFetch"]
+  },
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "chrome-devtools-mcp@claude-plugins-official": true
+  },
+  "alwaysThinkingEnabled": true,
+  "theme": "dark",
+  "skipAutoPermissionPrompt": true,
+  "sandbox": {
+    "enabled": true,
+    "filesystem": {
+      "denyRead": [
+        "~/",
+        ".netrc",
+        ".env",
+        "secrets",
+        "*.p8",
+        "*.pem",
+        "*_credentials.csv"
+      ],
+      "allowRead": ["."]
+    },
+    "autoAllowBashIfSandboxed": false,
+    "allowUnsandboxedCommands": false,
+    "enableWeakerNestedSandbox": false
+  }
+}
