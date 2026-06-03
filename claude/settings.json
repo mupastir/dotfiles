@@ -23,9 +23,14 @@
     "allowUnsandboxedCommands": false,
     "filesystem": {
       "denyRead": [
-        ".netrc",
-        ".env",
-        "secrets",
+        "~/.netrc",
+        "./.env",
+        "~/.env",
+        "~/env",
+        "~/.aws/credentials",
+        "~/Downloads",
+        "~/Documents",
+        "~/Pictures",
         "*.p8",
         "*.pem",
         "*_credentials.csv"
