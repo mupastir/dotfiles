@@ -31,9 +31,9 @@
         "~/Downloads",
         "~/Documents",
         "~/Pictures",
-        "*.p8",
-        "*.pem",
-        "*_credentials.csv"
+        "./*.p8",
+        "./*.pem",
+        "./*_credentials.csv"
       ],
       "allowRead": ["."]
     },
@@ -41,5 +41,9 @@
   },
   "alwaysThinkingEnabled": true,
   "theme": "dark",
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
   "effortLevel": "high"
 }
