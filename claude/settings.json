@@ -1,22 +1,28 @@
 {
-  "allowManagedPermissionRulesOnly": true,
   "permissions": {
-    "disableBypassPermissionsMode": "disable",
+    "deny": ["WebSearch", "WebFetch"],
     "ask": ["Bash"],
-    "deny": ["WebSearch", "WebFetch"]
+    "disableBypassPermissionsMode": "disable"
   },
+  "allowManagedPermissionRulesOnly": true,
   "enabledPlugins": {
+    "ralphex@ralphex": true,
+    "brainstorm@umputun-cc-thingz": true,
+    "review@umputun-cc-thingz": true,
+    "planning@umputun-cc-thingz": true,
+    "release-tools@umputun-cc-thingz": true,
+    "thinking-tools@umputun-cc-thingz": true,
+    "skill-eval@umputun-cc-thingz": true,
+    "workflow@umputun-cc-thingz": true,
     "frontend-design@claude-plugins-official": true,
     "chrome-devtools-mcp@claude-plugins-official": true
   },
-  "alwaysThinkingEnabled": true,
-  "theme": "dark",
-  "skipAutoPermissionPrompt": true,
   "sandbox": {
     "enabled": true,
+    "autoAllowBashIfSandboxed": false,
+    "allowUnsandboxedCommands": false,
     "filesystem": {
       "denyRead": [
-        "~/",
         ".netrc",
         ".env",
         "secrets",
@@ -26,8 +32,9 @@
       ],
       "allowRead": ["."]
     },
-    "autoAllowBashIfSandboxed": false,
-    "allowUnsandboxedCommands": false,
     "enableWeakerNestedSandbox": false
-  }
+  },
+  "alwaysThinkingEnabled": true,
+  "theme": "dark",
+  "effortLevel": "high"
 }
