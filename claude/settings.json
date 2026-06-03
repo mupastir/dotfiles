@@ -45,5 +45,8 @@
     "commit": "",
     "pr": ""
   },
+  "env": {
+    "AWS_PROFILE": "claude-operator"
+  },
   "effortLevel": "high"
 }
