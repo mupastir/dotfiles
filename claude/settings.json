@@ -56,5 +56,6 @@
     "AWS_REGION": "eu-central-1",
     "AWS_PROFILE": "claude-operator"
   },
-  "effortLevel": "high"
+  "effortLevel": "high",
+  "language": "english"
 }
