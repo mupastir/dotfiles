@@ -1,6 +1,13 @@
 {
   "permissions": {
-    "deny": ["WebSearch", "WebFetch"],
+    "deny": [
+      "WebSearch",
+      "WebFetch",
+      "Bash(curl *)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)"
+    ],
     "ask": ["Bash"],
     "disableBypassPermissionsMode": "disable"
   },
@@ -46,6 +53,7 @@
     "pr": ""
   },
   "env": {
+    "AWS_REGION": "eu-central-1",
     "AWS_PROFILE": "claude-operator"
   },
   "effortLevel": "high"
